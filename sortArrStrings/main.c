@@ -8,7 +8,7 @@ int main()
     scanf("%d", &n);
 
     char** arr;
-	arr = (char**)malloc(n * sizeof(char*));
+    arr = (char**)malloc(n * sizeof(char*));
 
     for(int i = 0; i < n; i++){
         *(arr + i) = malloc(1024 * sizeof(char));

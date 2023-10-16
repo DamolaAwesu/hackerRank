@@ -1,9 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "sortFunctions.h"
+
+/** \brief  Check if string a is lexicographically less than string b
+ *
+ * \param   a - First string
+ * \param   b - Second string
+ * \return  0 - a is less than b; 1 - a is greater than b
+ *
+ */
 int lexicographic_sort(const char* a, const char* b) {
     int retVal = 0;
-    
+
     if((NULL !=  a) && (NULL != b))
     {
         if(strcmp(a,b) > 0)
@@ -14,9 +20,16 @@ int lexicographic_sort(const char* a, const char* b) {
     return retVal;
 }
 
+/** \brief  Check if string a is lexicographically greater than string b
+ *
+ * \param   a - First string
+ * \param   b - Second string
+ * \return  0 - a is greater than b; 1 - a is less than b
+ *
+ */
 int lexicographic_sort_reverse(const char* a, const char* b) {
     int retVal = 0;
-    
+
     if((NULL !=  a) && (NULL != b))
     {
         if(strcmp(a,b) < 0)
@@ -26,6 +39,7 @@ int lexicographic_sort_reverse(const char* a, const char* b) {
     }
     return retVal;
 }
+
 
 static int countUniqueChars(const char * s) {
     int count = strlen(s); int len = strlen(s); int flag = 0;
@@ -46,9 +60,16 @@ static int countUniqueChars(const char * s) {
     return count;
 }
 
+/** \brief  Check if string a has less distinct characters than string b
+ *
+ * \param   a - First string
+ * \param   b - Second string
+ * \return  0 - a has same unique chars as b and a is lexicographically smaller than b; 1 - a has more unique characters than b
+ *
+ */
 int sort_by_number_of_distinct_characters(const char* a, const char* b) {
     int retVal = 0; int uniqA = 0; int uniqB = 0;
-    
+
     if((NULL !=  a) && (NULL != b))
     {
         //count unique characters in string
@@ -66,12 +87,19 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {
     return retVal;
 }
 
+/** \brief  Check if string a is shorter than string b
+ *
+ * \param   a - First string
+ * \param   b - Second string
+ * \return  0 - a is same length as b and a is lexicographically smaller than b; 1 - a is longer than b
+ *
+ */
 int sort_by_length(const char* a, const char* b) {
     int retVal = 0;
     if((NULL != a) && (NULL != b))
     {
         if(strlen(a) > strlen(b))
-        {            
+        {
             retVal = 1;
         }
         else if(strlen(a) == strlen(b))
@@ -79,7 +107,7 @@ int sort_by_length(const char* a, const char* b) {
             retVal = lexicographic_sort(a, b);
         }
     }
-    
+
     return retVal;
 }
 
@@ -101,40 +129,4 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
             }
         }
     }
-}
-
-
-int main() 
-{
-    int n;
-    scanf("%d", &n);
-  
-    char** arr;
-	arr = (char**)malloc(n * sizeof(char*));
-  
-    for(int i = 0; i < n; i++){
-        *(arr + i) = malloc(1024 * sizeof(char));
-        scanf("%s", *(arr + i));
-        *(arr + i) = realloc(*(arr + i), strlen(*(arr + i)) + 1);
-    }
-  
-    string_sort(arr, n, lexicographic_sort);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]);
-    printf("\n");
-
-    string_sort(arr, n, lexicographic_sort_reverse);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]); 
-    printf("\n");
-
-    string_sort(arr, n, sort_by_length);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]);    
-    printf("\n");
-
-    string_sort(arr, n, sort_by_number_of_distinct_characters);
-    for(int i = 0; i < n; i++)
-        printf("%s\n", arr[i]); 
-    printf("\n");
 }
